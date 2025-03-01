@@ -13,7 +13,7 @@ namespace EmployeeManagementSystem.Models
     /// </summary>
     public class Employee :Person
     {
-        public required int EmployeeId { get; set; }
+       
         
         
 

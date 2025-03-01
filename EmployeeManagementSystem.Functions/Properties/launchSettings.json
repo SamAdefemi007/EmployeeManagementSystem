@@ -2,7 +2,7 @@
   "profiles": {
     "EmployeeManagementSystem.Functions": {
       "commandName": "Project",
-      "commandLineArgs": "--port 7266",
+      "commandLineArgs": "--port 7142",
       "launchBrowser": false
     }
   }

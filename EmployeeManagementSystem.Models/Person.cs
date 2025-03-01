@@ -1,4 +1,6 @@
-﻿using System.Text.RegularExpressions;
+﻿using Newtonsoft.Json;
+using System.Text.Json.Serialization;
+using System.Text.RegularExpressions;
 
 namespace EmployeeManagementSystem.Models
 {
@@ -15,6 +17,8 @@ namespace EmployeeManagementSystem.Models
         private string? _LastName;
 
         //Unique Identifier for each person, this can be used to aggregate records for different classes common to that person
+
+        [JsonProperty(PropertyName = "id")]
         public required string Id { get; set; }
 
         public string FirstName
