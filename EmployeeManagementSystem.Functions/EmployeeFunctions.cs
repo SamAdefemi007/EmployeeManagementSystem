@@ -49,6 +49,10 @@ namespace EmployeeManagementSystem.Functions
             _logger.LogInformation("Attempting to retrieve EmployeeId '{EmployeeId}' in Department '{DepartmentId}'.", employeeId, departmentId);
             var employee = await _Repository.GetEmployeeByIdAsync(employeeId, departmentId);
 
+            if(employee == null) {
+                return new NotFoundResult();
+            }
+
             return new OkObjectResult(employee);
         }
 
@@ -100,7 +104,7 @@ namespace EmployeeManagementSystem.Functions
                 Description = "Function API key")]
         public async Task<IActionResult> UpdateEmployee(
                 [HttpTrigger(AuthorizationLevel.Function, "put", Route = "employee")]
-            HttpRequestData req)
+            HttpRequest req)
         {
             
             _logger.LogInformation("Received request to update an employee.");
@@ -129,7 +133,7 @@ namespace EmployeeManagementSystem.Functions
                 Description = "Function API key")]
         public async Task<IActionResult> DeleteEmployee(
                 [HttpTrigger(AuthorizationLevel.Function, "delete", Route = "employee/{departmentId}/{employeeId}")]
-            HttpRequestData req,
+            HttpRequest req,
             string departmentId,
             string employeeId)
         {
@@ -152,11 +156,15 @@ namespace EmployeeManagementSystem.Functions
         public async Task<IActionResult> GetEmployeesByDepartment(
 
                 [HttpTrigger(AuthorizationLevel.Function, "get", Route = "employee/{departmentId}")]
-            HttpRequestData req,
+            HttpRequest req,
             string departmentId)
         {
             _logger.LogInformation("Attempting to retrieve all employees in Department '{DepartmentId}'.", departmentId);
             var employees = await _Repository.GetEmployeesByDepartmentAsync(departmentId);
+            if (employees == null || !employees.Any())
+            {
+                return new NotFoundResult();
+            }
             return new OkObjectResult(employees);
         }
     }

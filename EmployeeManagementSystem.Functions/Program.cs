@@ -15,7 +15,7 @@ builder.ConfigureFunctionsWebApplication();
 // builder.Services.AddApplicationInsightsTelemetryWorkerService()
 //   .ConfigureFunctionsApplicationInsights();
 
-builder.Services.AddSingleton(serv =>
+builder.Services.AddSingleton<IEmployeeManagementRepository>(serv =>
 {
     var logger = serv.GetRequiredService<ILogger<EmployeeManagementRepository>>();
 
@@ -65,6 +65,6 @@ builder.Services.AddSingleton(serv =>
     }
 });
 
-builder.Services.AddScoped<IEmployeeManagementRepository, EmployeeManagementRepository>();
+
 
 builder.Build().Run();
